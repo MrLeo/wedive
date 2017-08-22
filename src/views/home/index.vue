@@ -143,6 +143,9 @@
         if (data.event.type == 'mouseup') {
           this.eventInfo.mousedown.row = 0
           this.eventInfo.mousedown.column = 0
+        } else if (event.type == 'mousedown'
+          || event.type == 'mouseover' && (this.eventInfo.mousedown.row || this.eventInfo.mousedown.column)) {
+          this.$store.commit(types.dive.addSelected, {row: data.row, column: data.column})
         }
       },
       /**

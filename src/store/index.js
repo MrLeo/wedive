@@ -7,6 +7,7 @@ import actions from './actions'
 import mutations from './mutations'
 
 import base from './modules/base'
+import dive from './modules/dive'
 
 //import createLogger from 'vuex/dist/logger' //vuex内置的Logger日志插件
 const debug = process.env.NODE_ENV !== 'production' //发布品种时需要用 Webpack 的 DefinePlugin 来转换 process.env.NODE_ENV !== 'production' 的值为 false
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     mutations,
     modules: {
         base,
+        dive,
     },
     strict: debug,//开发阶段使用
     //plugins: debug ? [createLogger()] : []//vuex插件

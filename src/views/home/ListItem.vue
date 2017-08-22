@@ -1,5 +1,5 @@
 <template lang="pug">
-  .block(@mousedown="mouse",@mouseup="mouse",@mouseover="mouse",:class="[{'selected':selected},classGetter]")
+  .block(@mousedown="mouse",@mouseup="mouse",@mouseover="mouse",:class="[classGetter,selectedGetter]")
 </template>
 
 <script>
@@ -8,7 +8,6 @@
     data: () => ({
       hover: false,
       currHover: false,
-      selected: false
     }),
     computed: {
       classGetter() {
@@ -18,13 +17,18 @@
           //当前鼠标滑过的高亮
           'curr-hover': this.row == this.eventInfo.mouseover.row && this.column == this.eventInfo.mouseover.column
         }
+      },
+      selectedGetter() {
+        let se = {'selected': false}
+        this.$store.state.dive.selected.forEach(item => {
+          if (item.row == this.row && item.column == this.column) {
+            se['selected'] = true
+          }
+        })
+        return se
       }
     },
-    watch: {
-      eventInfo: function (val, oldVal) {
-        console.log('eventInfo change', val)
-      }
-    },
+    watch: {},
     created() {
     },
     mounted() {
@@ -37,10 +41,6 @@
       mouse(event) {
         //向父组件传递事件通知
         this.$emit('mouseOverBlockItem', {row: this.row, column: this.column, event})
-        if (event.type == 'mousedown'
-          || event.type == 'mouseover' && (this.eventInfo.mousedown.row || this.eventInfo.mousedown.column)) {
-          this.selected = !this.selected
-        }
       },
     }
   }
