@@ -1,5 +1,5 @@
 <template lang="pug">
-  .block(@mousedown="mouse",@mouseup="mouse",@mouseover="mouse",:class="[{'selected':selected},classGetter]") {{row}}/{{column}}
+  .block(@mousedown="mouse",@mouseup="mouse",@mouseover="mouse",:class="[{'selected':selected},classGetter]")
 </template>
 
 <script>

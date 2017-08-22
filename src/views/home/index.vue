@@ -22,10 +22,12 @@
         'xx潜1': {},
         'xx潜2': {},
         'xx潜3': {},
+        'xx潜4': {},
+        'xx潜5': {},
       },
       date: {
         start: '2017-10-01',
-        end: '2017-10-10',
+        end: '2017-10-15',
         list: []
       },
       eventInfo: {
@@ -99,23 +101,36 @@
       getCalendarDays() {
         let startDateArr = this.date.start.split('-')
         let endDateArr = this.date.end.split('-')
-        let setDateList = (year, month, day = 1) => {
-          let lastDay = this.getDaysInMonth(year, month)
-          for (day; day <= lastDay; day++) {
-            this.date.list.push({year, month, day, week: this.getWeek(new Date(year, month, day))})
+        if (~~startDateArr[1] == ~~endDateArr[1]) {
+          for (let day = ~~startDateArr[2]; day < ~~endDateArr[2]; day++) {
+            this.date.list.push({
+              year: endDateArr[0],
+              month: endDateArr[1],
+              day,
+              week: this.getWeek(new Date(endDateArr[0], endDateArr[1], day))
+            })
           }
-        }
-        setDateList(startDateArr[0], startDateArr[1], startDateArr[2])
-        for (let month = startDateArr[1] + 1; month < endDateArr[1]; month++) {
-          setDateList(startDateArr[0], startDateArr[1])
-        }
-        for (let day = 1; day < endDateArr[3]; day++) {
-          this.date.list.push({
-            year: endDateArr[0],
-            month: endDateArr[1],
-            day,
-            week: this.getWeek(new Date(endDateArr[0], endDateArr[1], day))
-          })
+        } else {
+          let setDateList = (year, month, day = 1) => {
+            let lastDay = this.getDaysInMonth(year, month)
+            for (day; day <= lastDay; day++) {
+              this.date.list.push({year, month, day, week: this.getWeek(new Date(year, month, day))})
+            }
+          }
+          setDateList(startDateArr[0], startDateArr[1], startDateArr[2])//起始月
+          for (let month = startDateArr[1] + 1; month < endDateArr[1]; month++) {//中间月
+            setDateList(startDateArr[0], startDateArr[1])
+            console.log('for1')
+          }
+          for (let day = 1; day < endDateArr[2]; day++) {//结束月
+            console.log('for2')
+            this.date.list.push({
+              year: endDateArr[0],
+              month: endDateArr[1],
+              day,
+              week: this.getWeek(new Date(endDateArr[0], endDateArr[1], day))
+            })
+          }
         }
       },
       /**
