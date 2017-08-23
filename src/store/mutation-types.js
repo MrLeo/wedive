@@ -4,6 +4,7 @@ export const base = {
 }
 
 export const dive = {
-  addSelected: 'dive/addSelected'
+  cleanSelected: 'dive/cleanSelected',
+  addSelectedItem: 'dive/addSelectedItem',
 }
 

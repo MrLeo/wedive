@@ -4,7 +4,7 @@
     .table(@mouseout="outTable")
       .row(v-for="(row,rIndex) in rowsGetter")
         template(v-for="(column,cIndex) in date.list")
-          v-column-item(:key="cIndex",:row='rIndex+1',:column="cIndex+1",:eventInfo="eventInfo",@mouseOverBlockItem="mouse")
+          v-column-item(:key="cIndex",:row='rIndex+1',:column="cIndex+1",:eventInfo="eventInfo",:selectRange="selectRange",@mouseOverBlockItem="mouse")
 </template>
 
 <script>
@@ -30,19 +30,20 @@
         end: '2017-10-15',
         list: []
       },
+      selectRange: [],
+      startPointRow: 0,
+      startPointColumn: 0,
       eventInfo: {
+        isMouseDown: false,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
         mouseover: {
           row: 0,
           column: 0
         },
-        mousedown: {
-          row: 0,
-          column: 0
-        },
-        mouseup: {
-          row: 0,
-          column: 0
-        }
+        event: null
       }
     }),
     created() {
@@ -138,22 +139,53 @@
        * @param data
        */
       mouse(data) {
-        this.eventInfo[data.event.type].row = data.row
-        this.eventInfo[data.event.type].column = data.column
-        if (data.event.type == 'mouseup') {
-          this.eventInfo.mousedown.row = 0
-          this.eventInfo.mousedown.column = 0
-        } else if (event.type == 'mousedown'
-          || event.type == 'mouseover' && (this.eventInfo.mousedown.row || this.eventInfo.mousedown.column)) {
-          this.$store.commit(types.dive.addSelected, [data.row, data.column].join(','))
+        this.eventInfo.event = data.event
+        //标记鼠标按下，并记录按下的坐标
+        if (data.event.type === 'mousedown') {
+          this.eventInfo.isMouseDown = true
+          this.startPointRow = this.eventInfo.top = this.eventInfo.bottom = data.row
+          this.startPointColumn = this.eventInfo.left = this.eventInfo.right = data.column
+          // this.$store.commit(types.dive.addSelectedItem, [this.startPointRow, this.startPointColumn].join(','))
+          this.selectRange.push([this.startPointRow, this.startPointColumn].join(','))
+        }
+        if (data.event.type === 'mouseover') {
+          this.eventInfo.mouseover.row = data.row
+          this.eventInfo.mouseover.column = data.column
+
+          if (this.eventInfo.isMouseDown) {//鼠标按下选择区域
+            //记录矩形选择区域的四个边的位置
+            this.eventInfo.top = Math.min(this.startPointRow, data.row)
+            this.eventInfo.bottom = Math.max(this.startPointRow, data.row)
+            this.eventInfo.left = Math.min(this.startPointColumn, data.column)
+            this.eventInfo.right = Math.max(this.startPointColumn, data.column)
+            //将选择区域添加到vuex
+            for (let row = this.eventInfo.top; row <= this.eventInfo.bottom; row++) {
+              for (let column = this.eventInfo.left; column <= this.eventInfo.right; column++) {
+                if (this.startPointRow === row && this.startPointColumn === column) continue
+                // this.$store.commit(types.dive.addSelectedItem, [row, column].join(','))
+                this.selectRange.push([row, column].join(','))
+              }
+            }
+          } else {//鼠标滑过
+            this.eventInfo.top = this.eventInfo.bottom = data.row
+            this.eventInfo.left = this.eventInfo.right = data.column
+          }
+        }
+        if (data.event.type === 'mouseup') {
+          this.eventInfo.isMouseDown = false
         }
       },
       /**
        * 鼠标移出日历表格
        */
       outTable() {
-        this.eventInfo.mouseover.row = 0
-        this.eventInfo.mouseover.column = 0
+        this.eventInfo.mouseover.row
+          = this.eventInfo.mouseover.column
+          = this.eventInfo.top
+          = this.eventInfo.bottom
+          = this.eventInfo.left
+          = this.eventInfo.right
+          = 0
       }
     }
   }

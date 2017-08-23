@@ -1,30 +1,39 @@
 <template lang="pug">
   .block(@mousedown="mouse",@mouseup="mouse",@mouseover="mouse",:class="[classGetter,selectedGetter]")
+    span(v-if="showPop") pop
 </template>
 
 <script>
   export default {
-    props: ['row', 'column', 'eventInfo'],
+    props: ['row', 'column', 'eventInfo', 'selectRange'],
     data: () => ({
+      showPop: false,
       hover: false,
       currHover: false,
     }),
     computed: {
       classGetter() {
         return {
-          //当前鼠标滑过的关联行列的高亮
-          'hover': this.row == this.eventInfo.mouseover.row || this.column == this.eventInfo.mouseover.column,
-          //当前鼠标滑过的高亮
-          'curr-hover': this.row == this.eventInfo.mouseover.row && this.column == this.eventInfo.mouseover.column
+          'hover': this.row === this.eventInfo.mouseover.row || this.column === this.eventInfo.mouseover.column,//关联横纵坐标高亮
+          'curr-hover': this.row === this.eventInfo.mouseover.row && this.column === this.eventInfo.mouseover.column,//鼠标点高亮
         }
       },
       selectedGetter() {
-        let se = {'selected': false}
-        if (this.$store.state.dive.selected.indexOf([this.row, this.column].join(',')) !== -1) se['selected'] = true
-        return se
+        //return {'selected': this.$store.state.dive.selected.indexOf([this.row, this.column].join(',')) !== -1}
+        return {'selected': this.selectRange.indexOf([this.row, this.column].join(',')) !== -1}
+      },
+    },
+    watch: {
+      'eventInfo.event': function (val, oldVal) {
+        if (val.type === 'mouseup') {
+          if (this.row === this.eventInfo.mouseover.row && this.column === this.eventInfo.mouseover.column) {
+            this.showPop = true
+          } else {
+            this.showPop = false
+          }
+        }
       }
     },
-    watch: {},
     created() {
     },
     mounted() {
@@ -35,8 +44,7 @@
        * @param event
        */
       mouse(event) {
-        //向父组件传递事件通知
-        this.$emit('mouseOverBlockItem', {row: this.row, column: this.column, event})
+        this.$emit('mouseOverBlockItem', {row: this.row, column: this.column, event}) //向父组件传递事件通知
       },
     }
   }
