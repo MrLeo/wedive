@@ -20,11 +20,7 @@
       },
       selectedGetter() {
         let se = {'selected': false}
-        this.$store.state.dive.selected.forEach(item => {
-          if (item.row == this.row && item.column == this.column) {
-            se['selected'] = true
-          }
-        })
+        if (this.$store.state.dive.selected.indexOf([this.row, this.column].join(',')) !== -1) se['selected'] = true
         return se
       }
     },
