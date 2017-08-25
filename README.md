@@ -28,3 +28,13 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# 参考
+
+- [官网](https://cn.vuejs.org/)
+- [路由：vue-router](https://router.vuejs.org/zh-cn/)
+- [状态管理：Vuex](https://vuex.vuejs.org/zh-cn/)
+- [国际化：i18n](https://github.com/kazupon/vue-i18n)
+- [http请求：axios](https://github.com/mzabriskie/axios)
+- [请求参数处理：qs](https://github.com/ljharb/qs)
+- [更多插件...](https://github.com/vuejs/awesome-vue#libraries--plugins)
