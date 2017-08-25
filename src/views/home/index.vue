@@ -152,7 +152,7 @@
           this.eventInfo.mouseover.row = data.row
           this.eventInfo.mouseover.column = data.column
 
-          if (this.eventInfo.isMouseDown) {//鼠标按下选择区域
+          if (this.eventInfo.isMouseDown) {//选择区域
             //记录矩形选择区域的四个边的位置
             this.eventInfo.top = Math.min(this.startPointRow, data.row)
             this.eventInfo.bottom = Math.max(this.startPointRow, data.row)
