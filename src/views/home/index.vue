@@ -31,6 +31,12 @@
         list: []
       },
       selectRange: [],
+      selectRangeTemp: {
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+      },
       startPointRow: 0,
       startPointColumn: 0,
       eventInfo: {
@@ -145,8 +151,13 @@
           this.eventInfo.isMouseDown = true
           this.startPointRow = this.eventInfo.top = this.eventInfo.bottom = data.row
           this.startPointColumn = this.eventInfo.left = this.eventInfo.right = data.column
-          // this.$store.commit(types.dive.addSelectedItem, [this.startPointRow, this.startPointColumn].join(','))
-          this.selectRange.push([this.startPointRow, this.startPointColumn].join(','))
+          // this.$store.commit(types.dive.addSelectedItem, [this.row, this.column].join(','))
+          let index = this.selectRange.indexOf([data.row, data.column].join(','))
+          if (index === -1) {
+            this.selectRange.push([this.startPointRow, this.startPointColumn].join(','))
+          } else {
+            this.selectRange.splice(index, 1)
+          }
         }
         if (data.event.type === 'mouseover') {
           this.eventInfo.mouseover.row = data.row
@@ -158,12 +169,26 @@
             this.eventInfo.bottom = Math.max(this.startPointRow, data.row)
             this.eventInfo.left = Math.min(this.startPointColumn, data.column)
             this.eventInfo.right = Math.max(this.startPointColumn, data.column)
-            //将选择区域添加到vuex
+
             for (let row = this.eventInfo.top; row <= this.eventInfo.bottom; row++) {
               for (let column = this.eventInfo.left; column <= this.eventInfo.right; column++) {
-                if (this.startPointRow === row && this.startPointColumn === column) continue
-                // this.$store.commit(types.dive.addSelectedItem, [row, column].join(','))
-                this.selectRange.push([row, column].join(','))
+
+                let currPoint = [row, column].join(',')
+                let index = this.selectRange.indexOf(currPoint)
+
+                if (row <= this.selectRangeTemp.bottom
+                  && row >= this.selectRangeTemp.top
+                  && column <= this.selectRangeTemp.right
+                  && column >= this.selectRangeTemp.left) {
+                  if (index !== -1) this.selectRange.splice(index, 1)
+                } else {//上一个选择区域外的，添加
+                  if (index === -1) {//没添加过的
+                    // this.$store.commit(types.dive.addSelectedItem, [row, column].join(','))
+                    this.selectRange.push(currPoint)
+                  } else {
+                    continue
+                  }
+                }
               }
             }
           } else {//鼠标滑过
@@ -173,6 +198,10 @@
         }
         if (data.event.type === 'mouseup') {
           this.eventInfo.isMouseDown = false
+          this.selectRangeTemp.top = this.eventInfo.top
+          this.selectRangeTemp.bottom = this.eventInfo.bottom
+          this.selectRangeTemp.left = this.eventInfo.left
+          this.selectRangeTemp.right = this.eventInfo.right
         }
       },
       /**

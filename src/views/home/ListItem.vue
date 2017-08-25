@@ -26,8 +26,14 @@
     watch: {
       'eventInfo.event': function (val, oldVal) {
         if (val.type === 'mouseup') {
-          if (this.row === this.eventInfo.mouseover.row && this.column === this.eventInfo.mouseover.column) {
-            this.showPop = true
+          let lastSelected = this.selectRange[this.selectRange.length - 1]
+          if (lastSelected) {
+            let lastSelecteds = lastSelected.split(',')
+            if (this.row == lastSelecteds[0] && this.column == lastSelecteds[1]) {
+              this.showPop = true
+            } else {
+              this.showPop = false
+            }
           } else {
             this.showPop = false
           }
