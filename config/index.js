@@ -27,7 +27,17 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    //代理跨域
+    //https://vuejs-templates.github.io/webpack/proxy.html
+    proxyTable: {
+      '*': {
+        target: 'http://jsonplaceholder.typicode.com',//TODO:目标地址
+        changeOrigin: true,//是否启用跨域访问
+        // pathRewrite: {//对资源的请求重定向到另一路径
+        //   '^/api': ''
+        // }
+      }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
