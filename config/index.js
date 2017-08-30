@@ -31,7 +31,7 @@ module.exports = {
     //https://vuejs-templates.github.io/webpack/proxy.html
     proxyTable: {
       '*': {
-        target: 'http://jsonplaceholder.typicode.com',//TODO:目标地址
+        target: 'http://jsonplaceholder.typicode.com',//TODO:代理目标地址
         changeOrigin: true,//是否启用跨域访问
         // pathRewrite: {//对资源的请求重定向到另一路径
         //   '^/api': ''
