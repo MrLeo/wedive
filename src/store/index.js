@@ -1,33 +1,33 @@
-//https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart/store
+// https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart/store
 
-import Vue from "vue";
-import Vuex from "vuex";
-import getters from './getters'
-import actions from './actions'
-import mutations from './mutations'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import getters from './getters';
+import actions from './actions';
+import mutations from './mutations';
 
-import base from './modules/base'
-import dive from './modules/dive'
+import base from './modules/base';
+import dive from './modules/dive';
 
-//import createLogger from 'vuex/dist/logger' //vuex内置的Logger日志插件
-const debug = process.env.NODE_ENV !== 'production' //发布品种时需要用 Webpack 的 DefinePlugin 来转换 process.env.NODE_ENV !== 'production' 的值为 false
+// import createLogger from 'vuex/dist/logger' //vuex内置的Logger日志插件
+const debug = process.env.NODE_ENV !== 'production'; // 发布品种时需要用 Webpack 的 DefinePlugin 来转换 process.env.NODE_ENV !== 'production' 的值为 false
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-    getters,
-    actions,
-    mutations,
-    modules: {
-        base,
-        dive,
-    },
-    strict: debug,//开发阶段使用
-    //plugins: debug ? [createLogger()] : []//vuex插件
-})
+  getters,
+  actions,
+  mutations,
+  modules: {
+    base,
+    dive
+  },
+  strict: debug // 开发阶段使用
+  // plugins: debug ? [createLogger()] : []//vuex插件
+});
 
-//热重载
-//if (module.hot) {
+// 热重载
+// if (module.hot) {
 //    // 使 mutations，modules ，actions 和 getters 成为可热重载模块
 //    module.hot.accept([
 //        './actions',
@@ -41,4 +41,4 @@ export default new Vuex.Store({
 //            getters: require('./getters').default
 //        })
 //    })
-//}
+// }

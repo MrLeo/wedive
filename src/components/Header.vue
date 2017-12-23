@@ -6,35 +6,35 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
-    import * as types from '@/store/mutation-types'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import * as types from '@/store/mutation-types';
 
-    export default {
-        name: 'Header',
-        components: {},
-        props: {},
-        data: () => ({
-            lan:'zh-cn'
-        }),
-        created() {
-        },
-        mounted() {
-            this.lan = window.localStorage.getItem('lan') || 'zh-cn'
-        },
-        watch: {},
-        computed: {
-            ...mapState({}),
-            ...mapGetters({}),
-        },
-        methods: {
-            ...mapActions([]),
-            ...mapMutations({}),
-            changeLan(event) {
-                this.$emit('changeLan', event.target.value)//向父组件发送消息
-            }
-        }
+export default {
+  name: 'Header',
+  components: {},
+  props: {},
+  data: () => ({
+    lan: 'zh-cn'
+  }),
+  created() {},
+  mounted() {
+    this.lan = window.localStorage.getItem('lan') || 'zh-cn';
+  },
+  watch: {},
+  computed: {
+    ...mapState({}),
+    ...mapGetters({})
+  },
+  methods: {
+    ...mapActions([]),
+    ...mapMutations({}),
+    changeLan(event) {
+      this.$emit('changeLan', event.target.value); // 向父组件发送消息
     }
+  }
+};
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
+
 </style>
