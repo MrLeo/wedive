@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 13:59:10
+ * @Last Modified by:   Leo
+ * @Last Modified time: 2017-12-29 13:59:10
+ */
 <template lang="pug">
   .block(@mousedown="mouse",@mouseup="mouse",@mouseover="mouse",:class="[classGetter,selectedGetter]")
     span(v-if="showPop") pop

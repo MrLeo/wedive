@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 13:58:57
+ * @Last Modified by:   Leo
+ * @Last Modified time: 2017-12-29 13:58:57
+ */
 <template lang="pug">
     .login
         .login_user

@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 13:59:02
+ * @Last Modified by:   Leo
+ * @Last Modified time: 2017-12-29 13:59:02
+ */
 <template lang="pug">
   .page.page-current
     div 国际化信息：{{ $t("signIn") }}

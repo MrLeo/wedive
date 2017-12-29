@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 14:00:07
+ * @Last Modified by:   Leo
+ * @Last Modified time: 2017-12-29 14:00:07
+ */
 import Vue from 'vue';
 import { base } from '../mutation-types';
 import api from '../api';

@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 13:58:33
+ * @Last Modified by: Leo
+ * @Last Modified time: 2017-12-29 14:50:00
+ */
 /*                     _ooOoo_
  *                    o8888888o
  *                    88" . "88
@@ -26,10 +32,20 @@ import VueI18n from 'vue-i18n';
 import App from './App';
 import router from './router';
 import store from './store/';
+import * as filters from './utils/filters';
+import fetch from './utils/fetch';
 import lan from './utils/language';
 // import 'babel-polyfill'
 
 Vue.config.productionTip = false;
+
+/* 全局注册fetch */
+Vue.prototype.$fetch = fetch;
+
+/* 注册全局过滤器 */
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key]);
+});
 
 /* 国际化，默认中文(zh-cn) */
 Vue.use(VueI18n);

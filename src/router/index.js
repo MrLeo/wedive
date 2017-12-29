@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 14:00:26
+ * @Last Modified by:   Leo
+ * @Last Modified time: 2017-12-29 14:00:26
+ */
 import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router);

@@ -1,3 +1,9 @@
+/*
+ * @Author: Leo - [xuebin.me]
+ * @Date: 2017-12-29 14:00:30
+ * @Last Modified by:   Leo
+ * @Last Modified time: 2017-12-29 14:00:30
+ */
 export default [
   {
     path: '/login',
