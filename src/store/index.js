@@ -1,8 +1,8 @@
 /*
  * @Author: Leo - [xuebin.me]
  * @Date: 2017-12-29 13:59:45
- * @Last Modified by:   Leo
- * @Last Modified time: 2017-12-29 13:59:45
+ * @Last Modified by: Leo
+ * @Last Modified time: 2018-01-05 17:40:07
  */
 // https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart/store
 
@@ -20,7 +20,10 @@ const debug = process.env.NODE_ENV !== 'production'; // 发布品种时需要用
 
 Vue.use(Vuex);
 
+let state = {};
+
 export default new Vuex.Store({
+  state,
   getters,
   actions,
   mutations,

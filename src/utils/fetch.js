@@ -2,7 +2,7 @@
  * @Author: Leo - [xuebin.me]
  * @Date: 2017-12-05 00:33:23
  * @Last Modified by: Leo
- * @Last Modified time: 2017-12-29 14:20:17
+ * @Last Modified time: 2018-01-05 17:43:35
  */
 import Vue from 'vue';
 import router from '../router';
@@ -85,7 +85,8 @@ _instance.interceptors.response.use(
       Toast(_message);
       return Promise.reject(_message);
     } else {
-      return res.data
+      return res.data;
+    }
   },
   error => {
     console.error(error);

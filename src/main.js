@@ -2,7 +2,7 @@
  * @Author: Leo - [xuebin.me]
  * @Date: 2017-12-29 13:58:33
  * @Last Modified by: Leo
- * @Last Modified time: 2017-12-29 14:50:00
+ * @Last Modified time: 2018-01-05 17:44:46
  */
 /*                     _ooOoo_
  *                    o8888888o
@@ -32,7 +32,7 @@ import VueI18n from 'vue-i18n';
 import App from './App';
 import router from './router';
 import store from './store/';
-import * as filters from './utils/filters';
+import * as filters from './filters/';
 import fetch from './utils/fetch';
 import lan from './utils/language';
 // import 'babel-polyfill'
