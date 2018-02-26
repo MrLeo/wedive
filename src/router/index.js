@@ -2,7 +2,7 @@
  * @Author: Leo - [xuebin.me]
  * @Date: 2017-12-29 14:00:26
  * @Last Modified by: Leo
- * @Last Modified time: 2018-02-26 17:24:23
+ * @Last Modified time: 2018-02-26 17:30:22
  */
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -41,6 +41,7 @@ router.beforeEach((to, from, next) => {
   // } else {
   //     next()//正常跳转
   // }
+  next()
 })
 
 router.afterEach((to, from) => {})
