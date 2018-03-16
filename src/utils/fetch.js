@@ -2,7 +2,7 @@
  * @Author: Leo - [xuebin.me]
  * @Date: 2017-12-05 00:33:23
  * @Last Modified by: Leo
- * @Last Modified time: 2018-03-13 15:59:28
+ * @Last Modified time: 2018-03-14 14:50:43
  */
 import Vue from 'vue'
 import axios from 'axios'
@@ -107,7 +107,7 @@ let toast = null
  */
 async function get(api, params) {
   try {
-    if (!toast) toast = Toast({ time: -1, message: '加载中', icon: 'loading' })
+    toast = Toast({ time: -1, message: '加载中', icon: 'loading' })
     let { data } = await _instance.get(api, { params })
     toast.close()
     return data
@@ -126,7 +126,7 @@ async function get(api, params) {
  */
 async function post(api, params) {
   try {
-    if (!toast) toast = Toast({ time: -1, message: '加载中', icon: 'loading' })
+    toast = Toast({ time: -1, message: '加载中', icon: 'loading' })
     let { data } = await _instance.post(api, qs.stringify(params))
     toast.close()
     return data
